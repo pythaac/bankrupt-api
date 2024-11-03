@@ -1,6 +1,6 @@
 package com.bankrupt.bankruptapi.controller;
 
-import com.bankrupt.bankruptapi.model.Board;
+import com.bankrupt.bankruptapi.model.CourtBoardDetail;
 import com.bankrupt.bankruptapi.service.ScourtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,8 @@ public class Testcontroller {
     private final ScourtService scourtService;
 
     @GetMapping(value = "/")
-    public ArrayList<Board> test() {
-        return scourtService.test();
+    public String test() {
+        scourtService.updateDiff();
+        return "done";
     }
 }

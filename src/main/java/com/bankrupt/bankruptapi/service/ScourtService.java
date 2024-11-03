@@ -2,6 +2,8 @@ package com.bankrupt.bankruptapi.service;
 
 import com.bankrupt.bankruptapi.feign.ScourtBoardClient;
 import com.bankrupt.bankruptapi.model.Board;
+import com.bankrupt.bankruptapi.model.CourtBoardDetail;
+import com.bankrupt.bankruptapi.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,66 @@ import java.util.Map;
 public class ScourtService {
     private final ScourtBoardClient scourtBoardClient;
     private final JsoupService jsoupService;
+    private final BoardRepository boardRepository;
 
-    public ArrayList<Board> test() {
+    public void updateDiff() {
+        List<Long> idsFromCourt = getAllBoards();
+        List<Long> idsFromDb = boardRepository.getBoardIds();
+
+        // Not in DB -> insert
+        List<Long> insertIdList = idsFromCourt.stream()
+                .parallel()
+                .filter(court -> !idsFromDb.contains(court))
+                .toList();
+
+        // Not in Court -> delete
+        List<Long> deleteIdList = idsFromDb.stream()
+                .parallel()
+                .filter(db -> !idsFromCourt.contains(db))
+                .toList();
+
+        if (!insertIdList.isEmpty()) {
+            ArrayList<Board> insertBoards = new ArrayList<>();
+
+            for (Long seqId : insertIdList) {
+                CourtBoardDetail boardDetail = getBoardDetail(seqId);
+                Board board = boardDetail.toBoard(seqId);
+                insertBoards.add(board);
+            }
+
+            boardRepository.saveAll(insertBoards);
+        }
+
+        if (!deleteIdList.isEmpty()) {
+            boardRepository.deleteAllById(deleteIdList);
+        }
+    }
+
+    private ArrayList<Long> getAllBoards() {
 
         Map<String, Object> header = getScourtBoardHeader();
         String html = scourtBoardClient.getBoardPage(header, 5, 1);
-        return jsoupService.getBoardList(html);
+
+        Integer lastPageIndex = jsoupService.getLastPageIndex(html);
+
+        ArrayList<Long> courtBoards = new ArrayList<>();
+        for(int pageIndex=1; pageIndex<=lastPageIndex; pageIndex++) {
+            html = scourtBoardClient.getBoardPage(header, 5, pageIndex);
+            ArrayList<Long> courtBoard = jsoupService.getSeqId(html);
+            courtBoards.addAll(courtBoard);
+        }
+
+        return courtBoards;
+    }
+
+    private CourtBoardDetail getBoardDetail(Long seqId) {
+
+        Map<String, Object> header = getScourtBoardHeader();
+
+        String detailHtml = scourtBoardClient.getBoardDetailPage(header, seqId);
+        CourtBoardDetail courtBoardDetail = jsoupService.getBoardDetails(detailHtml);
+
+        return courtBoardDetail;
     }
 
     private Map<String, Object> getScourtBoardHeader() {

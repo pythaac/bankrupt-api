@@ -17,4 +17,9 @@ public interface ScourtBoardClient {
             , @RequestParam("pageIndex") Integer pageIndex
     );
 
+    @PostMapping("/portal/notice/realestate/RealNoticeView.work")
+    String getBoardDetailPage(
+            @RequestHeader Map<String, Object> header
+            , @RequestParam("seq_id") Long seq_id
+    );
 }
