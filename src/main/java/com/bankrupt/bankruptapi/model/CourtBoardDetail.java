@@ -1,5 +1,6 @@
 package com.bankrupt.bankruptapi.model;
 
+import com.bankrupt.bankruptapi.dao.Board;
 import lombok.Builder;
 import lombok.Data;
 

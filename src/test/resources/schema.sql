@@ -14,9 +14,16 @@ CREATE TABLE board (
 DROP TABLE IF EXISTS category;
 CREATE TABLE category (
     id                  BIGINT PRIMARY KEY,
-    category            TEXT,
+    category_name       TEXT,
 
-    CONSTRAINT category_unique UNIQUE (category)
+    CONSTRAINT category_unique UNIQUE (category_name)
+);
+
+DROP TABLE IF EXISTS category_resource;
+CREATE TABLE category_resource (
+    id                  BIGINT PRIMARY KEY,
+    category_id         BIGINT,
+    category            TEXT
 );
 
 DROP TABLE IF EXISTS category_relation;

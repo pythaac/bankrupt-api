@@ -1,9 +1,8 @@
 package com.bankrupt.bankruptapi.service;
 
 import com.bankrupt.bankruptapi.feign.ScourtBoardClient;
-import com.bankrupt.bankruptapi.model.Board;
+import com.bankrupt.bankruptapi.dao.Board;
 import com.bankrupt.bankruptapi.model.CourtBoardDetail;
-import com.bankrupt.bankruptapi.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +16,11 @@ import java.util.Map;
 public class ScourtService {
     private final ScourtBoardClient scourtBoardClient;
     private final JsoupService jsoupService;
-    private final BoardRepository boardRepository;
+    private final BoardService boardService;
 
     public void updateDiff() {
         List<Long> idsFromCourt = getAllBoards();
-        List<Long> idsFromDb = boardRepository.getBoardIds();
+        List<Long> idsFromDb = boardService.getAllBoardIdList();
 
         // Not in DB -> insert
         List<Long> insertIdList = idsFromCourt.stream()
@@ -44,11 +43,11 @@ public class ScourtService {
                 insertBoards.add(board);
             }
 
-            boardRepository.saveAll(insertBoards);
+            boardService.saveBoards(insertBoards);
         }
 
         if (!deleteIdList.isEmpty()) {
-            boardRepository.deleteAllById(deleteIdList);
+            boardService.deleteBoardsByIdList(deleteIdList);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.bankrupt.bankruptapi.repository;
 
-import com.bankrupt.bankruptapi.model.Board;
+import com.bankrupt.bankruptapi.dao.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
