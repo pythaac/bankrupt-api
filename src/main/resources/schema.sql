@@ -9,4 +9,10 @@ CREATE TABLE board (
     file                TEXT,
     file_name           TEXT,
     telephone_number    TEXT
-)
+);
+
+DROP TABLE IF EXISTS category;
+CREATE TABLE category (
+   id                   BIGINT,
+   category             TEXT
+);
