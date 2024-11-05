@@ -16,6 +16,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final CategoryRelationRepository categoryRelationRepository;
 
+    private final CategoryRelationService categoryRelationService;
+
     @Transactional
     public List<Long> getAllBoardIdList() {
         return boardRepository.getBoardIds();
@@ -23,7 +25,10 @@ public class BoardService {
 
     @Transactional
     public void saveBoards(ArrayList<Board> boards) {
-        boardRepository.saveAll(boards);
+        boards.forEach(board -> {
+            boardRepository.save(board);
+            categoryRelationService.saveCategoryRelationsByBoard(board);
+        });
     }
 
     @Transactional
