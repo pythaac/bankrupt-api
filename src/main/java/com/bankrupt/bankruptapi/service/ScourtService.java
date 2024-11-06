@@ -35,19 +35,19 @@ public class ScourtService {
                 .toList();
 
         if (!insertIdList.isEmpty()) {
-            ArrayList<Board> insertBoards = new ArrayList<>();
+            ArrayList<Board> insertBoardList = new ArrayList<>();
 
             for (Long seqId : insertIdList) {
                 CourtBoardDetail boardDetail = getBoardDetail(seqId);
                 Board board = boardDetail.toBoard(seqId);
-                insertBoards.add(board);
+                insertBoardList.add(board);
             }
 
-            boardService.saveBoards(insertBoards);
+            boardService.saveBoardList(insertBoardList);
         }
 
         if (!deleteIdList.isEmpty()) {
-            boardService.deleteBoardsByIdList(deleteIdList);
+            boardService.deleteByBoardIdList(deleteIdList);
         }
     }
 

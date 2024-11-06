@@ -2,7 +2,6 @@ package com.bankrupt.bankruptapi.service;
 
 import com.bankrupt.bankruptapi.dao.Board;
 import com.bankrupt.bankruptapi.repository.BoardRepository;
-import com.bankrupt.bankruptapi.repository.CategoryRelationRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
-    private final CategoryRelationRepository categoryRelationRepository;
 
     private final CategoryRelationService categoryRelationService;
 
@@ -24,16 +22,16 @@ public class BoardService {
     }
 
     @Transactional
-    public void saveBoards(ArrayList<Board> boards) {
-        boards.forEach(board -> {
+    public void saveBoardList(ArrayList<Board> boardList) {
+        boardList.forEach(board -> {
             boardRepository.save(board);
             categoryRelationService.saveCategoryRelationsByBoard(board);
         });
     }
 
     @Transactional
-    public void deleteBoardsByIdList(List<Long> boardIdList) {
+    public void deleteByBoardIdList(List<Long> boardIdList) {
         boardRepository.deleteAllById(boardIdList);
-        categoryRelationRepository.deleteAllByBoardIdIn(boardIdList);
+        categoryRelationService.deleteCategoryRelationsByBoardIdList(boardIdList);
     }
 }

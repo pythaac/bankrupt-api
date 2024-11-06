@@ -19,11 +19,20 @@ public class CategoryRelationService {
 
     public void saveCategoryRelationsByBoard(Board board) {
         Map<Long, List<String>> allCategoryRows = categoryService.getAllCategoryRows();
-        allCategoryRows.forEach((key, value) -> saveCategoryRelation(key, value, board));
+
+        allCategoryRows.entrySet().stream().parallel()
+                .forEach(entry -> saveCategoryRelation(entry.getKey(), entry.getValue(), board));
+    }
+
+    public void deleteCategoryRelationsByBoardIdList(List<Long> boardIdList) {
+        categoryRelationRepository.deleteAllByBoardIdIn(boardIdList);
     }
 
     private void saveCategoryRelation(Long categoryId, List<String> categoryList, Board board) {
-        if (categoryList.stream().anyMatch(category -> board.getTitle().contains(category))) {
+        if (categoryList.stream()
+                .parallel()
+                .anyMatch(category -> isMatched(category, board))
+        ) {
             categoryRelationRepository.save(
                     CategoryRelation.builder()
                             .categoryId(categoryId)
@@ -31,5 +40,9 @@ public class CategoryRelationService {
                             .build()
             );
         }
+    }
+
+    private boolean isMatched(String category, Board board) {
+        return board.getTitle().contains(category);
     }
 }
