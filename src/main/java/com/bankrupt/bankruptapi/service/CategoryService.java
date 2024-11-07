@@ -1,5 +1,6 @@
 package com.bankrupt.bankruptapi.service;
 
+import com.bankrupt.bankruptapi.dao.Category;
 import com.bankrupt.bankruptapi.dao.CategoryRow;
 import com.bankrupt.bankruptapi.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+
+    public void saveCategory(Category category) {
+        categoryRepository.save(category);
+    }
+
+    public void updateCategory(Category category) {
+
+    }
 
     public Map<Long, List<String>> getAllCategoryRows() {
         List<CategoryRow> allCategoryRows = categoryRepository.findAllCategoryRows();
