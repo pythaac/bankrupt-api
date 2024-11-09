@@ -14,4 +14,10 @@ public class CategoryResourceService {
     public void saveCategoryResource(CategoryResource categoryResource) {
         categoryResourceRepository.save(categoryResource);
     }
+
+    public void updateCategoryResourceCategory(Long id, String category) {
+        CategoryResource foundCategoryResource = categoryResourceRepository.findById(id).orElseThrow();
+        foundCategoryResource.setCategory(category);
+        categoryResourceRepository.save(foundCategoryResource);
+    }
 }

@@ -1,15 +1,16 @@
 package com.bankrupt.bankruptapi.dao;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.stereotype.Service;
 
 @Table(name = "category_resource")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class CategoryResource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

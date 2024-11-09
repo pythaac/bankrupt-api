@@ -3,11 +3,13 @@ package com.bankrupt.bankruptapi.service;
 import com.bankrupt.bankruptapi.dao.Category;
 import com.bankrupt.bankruptapi.dao.CategoryRow;
 import com.bankrupt.bankruptapi.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,8 +21,11 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
-    public void updateCategory(Category category) {
-
+    @Transactional
+    public void updateCategoryName(Long id, String categoryName) {
+        Category foundCategory = categoryRepository.findById(id).orElseThrow();
+        foundCategory.setCategoryName(categoryName);
+        categoryRepository.save(foundCategory);
     }
 
     public Map<Long, List<String>> getAllCategoryRows() {
