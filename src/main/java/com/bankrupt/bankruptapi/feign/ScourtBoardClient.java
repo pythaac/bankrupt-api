@@ -11,14 +11,14 @@ import java.util.Map;
 public interface ScourtBoardClient {
 
     @PostMapping("/portal/notice/realestate/RealNoticeList.work")
-    String getBoardPage(
+    String getScourtBoardPage(
             @RequestHeader Map<String, Object> header
             , @RequestParam("pageSize") Integer pageSize
             , @RequestParam("pageIndex") Integer pageIndex
     );
 
     @PostMapping("/portal/notice/realestate/RealNoticeView.work")
-    String getBoardDetailPage(
+    String getScourtBoardDetailPage(
             @RequestHeader Map<String, Object> header
             , @RequestParam("seq_id") Long seq_id
     );

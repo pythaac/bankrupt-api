@@ -17,21 +17,24 @@ public class BoardService {
     private final CategoryRelationService categoryRelationService;
 
     @Transactional
-    public List<Long> getAllBoardIdList() {
-        return boardRepository.getBoardIds();
-    }
-
-    @Transactional
     public void saveBoardList(ArrayList<Board> boardList) {
         boardList.forEach(board -> {
             boardRepository.save(board);
-            categoryRelationService.saveCategoryRelationsByBoard(board);
+            categoryRelationService.saveAllCategoryRelationByBoard(board);
         });
+    }
+
+    public List<Long> findAllBoardIdList() {
+        return boardRepository.findAllBoardIds();
+    }
+
+    public List<Board> findAllBoardByCategoryId(Long categoryId) {
+        return boardRepository.findAllBoardByCategoryId(categoryId);
     }
 
     @Transactional
     public void deleteByBoardIdList(List<Long> boardIdList) {
         boardRepository.deleteAllById(boardIdList);
-        categoryRelationService.deleteCategoryRelationsByBoardIdList(boardIdList);
+        categoryRelationService.deleteAllCategoryRelationByBoardIdList(boardIdList);
     }
 }

@@ -1,16 +1,12 @@
 package com.bankrupt.bankruptapi.service;
 
 import com.bankrupt.bankruptapi.dao.Category;
-import com.bankrupt.bankruptapi.dao.CategoryRow;
 import com.bankrupt.bankruptapi.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -28,15 +24,7 @@ public class CategoryService {
         categoryRepository.save(foundCategory);
     }
 
-    public Map<Long, List<String>> getAllCategoryRows() {
-        List<CategoryRow> allCategoryRows = categoryRepository.findAllCategoryRows();
-
-        return allCategoryRows.stream().collect(
-                Collectors.groupingBy(
-                        CategoryRow::getId,
-                        Collectors.mapping(CategoryRow::getCategory, Collectors.toList())
-                )
-        );
-
+    public List<Category> findAllCategoryByBoardId(Long boardId) {
+        return categoryRepository.findAllCateogryByBoardId(boardId);
     }
 }

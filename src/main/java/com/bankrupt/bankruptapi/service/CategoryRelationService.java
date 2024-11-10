@@ -3,7 +3,6 @@ package com.bankrupt.bankruptapi.service;
 import com.bankrupt.bankruptapi.dao.Board;
 import com.bankrupt.bankruptapi.dao.CategoryRelation;
 import com.bankrupt.bankruptapi.repository.CategoryRelationRepository;
-import com.bankrupt.bankruptapi.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +14,16 @@ import java.util.Map;
 public class CategoryRelationService {
     private final CategoryRelationRepository categoryRelationRepository;
 
-    private final CategoryService categoryService;
+    private final CategoryRowService categoryRowService;
 
-    public void saveCategoryRelationsByBoard(Board board) {
-        Map<Long, List<String>> allCategoryRows = categoryService.getAllCategoryRows();
+    public void saveAllCategoryRelationByBoard(Board board) {
+        Map<Long, List<String>> allCategoryRows = categoryRowService.getAllCategoryRow();
 
         allCategoryRows.entrySet().stream().parallel()
                 .forEach(entry -> saveCategoryRelation(entry.getKey(), entry.getValue(), board));
     }
 
-    public void deleteCategoryRelationsByBoardIdList(List<Long> boardIdList) {
+    public void deleteAllCategoryRelationByBoardIdList(List<Long> boardIdList) {
         categoryRelationRepository.deleteAllByBoardIdIn(boardIdList);
     }
 
