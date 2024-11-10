@@ -13,6 +13,9 @@ import java.util.List;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
+    private final CategoryResourceService categoryResourceService;
+    private final CategoryRelationService categoryRelationService;
+
     public void saveCategory(Category category) {
         categoryRepository.save(category);
     }
@@ -26,5 +29,11 @@ public class CategoryService {
 
     public List<Category> findAllCategoryByBoardId(Long boardId) {
         return categoryRepository.findAllCateogryByBoardId(boardId);
+    }
+
+    public void deleteCategory(Long id) {
+        categoryResourceService.deleteAllCategoryResourceByCategoryId(id);
+        categoryRelationService.deleteAllCategoryRelationByCategoryId(id);
+        categoryRepository.deleteById(id);
     }
 }

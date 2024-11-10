@@ -27,6 +27,10 @@ public class CategoryRelationService {
         categoryRelationRepository.deleteAllByBoardIdIn(boardIdList);
     }
 
+    public void deleteAllCategoryRelationByCategoryId(Long categoryId) {
+        categoryRelationRepository.deleteAllByCategoryId(categoryId);
+    }
+
     private void saveCategoryRelation(Long categoryId, List<String> categoryList, Board board) {
         if (categoryList.stream()
                 .parallel()

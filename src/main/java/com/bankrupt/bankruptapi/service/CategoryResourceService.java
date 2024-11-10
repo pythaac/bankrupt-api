@@ -20,4 +20,12 @@ public class CategoryResourceService {
         foundCategoryResource.setCategory(category);
         categoryResourceRepository.save(foundCategoryResource);
     }
+
+    public void deleteCategoryResourceById(Long id) {
+        categoryResourceRepository.deleteById(id);
+    }
+
+    public void deleteAllCategoryResourceByCategoryId(Long categoryId) {
+        categoryResourceRepository.deleteAllByCategoryId(categoryId);
+    }
 }
