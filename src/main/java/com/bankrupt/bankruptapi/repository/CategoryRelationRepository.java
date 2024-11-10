@@ -12,4 +12,6 @@ public interface CategoryRelationRepository extends JpaRepository<CategoryRelati
 
     @Transactional
     void deleteAllByBoardIdIn(List<Long> boardIdList);
+
+    void deleteAllByCategoryId(Long categoryId);
 }

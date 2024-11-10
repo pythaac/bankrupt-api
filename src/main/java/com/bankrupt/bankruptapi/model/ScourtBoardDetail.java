@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CourtBoardDetail {
+public class ScourtBoardDetail {
     String seller;
     String court;
     String title;

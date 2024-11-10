@@ -1,6 +1,6 @@
 package com.bankrupt.bankruptapi.service;
 
-import com.bankrupt.bankruptapi.model.CourtBoardDetail;
+import com.bankrupt.bankruptapi.model.ScourtBoardDetail;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 @Service
 public class JsoupService {
 
-    public CourtBoardDetail getBoardDetails(String html) {
+    public ScourtBoardDetail getScourtBoardDetail(String html) {
         try {
             Document doc = Jsoup.parse(html);
             Element tableHor = doc.getElementsByClass("tableVer").first();
 
-            CourtBoardDetail.CourtBoardDetailBuilder builder = CourtBoardDetail.builder();
+            ScourtBoardDetail.ScourtBoardDetailBuilder builder = ScourtBoardDetail.builder();
             Elements tr = tableHor.getElementsByTag("tr");
 
             for (Element trElement : tr) {
