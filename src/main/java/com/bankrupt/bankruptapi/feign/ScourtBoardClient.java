@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@FeignClient(value = "scourtBoardClient", url = "https://www.scourt.go.kr")
+import static com.bankrupt.bankruptapi.Constant.SCORUT_URL;
+
+@FeignClient(value = "scourtBoardClient", url = SCORUT_URL)
 public interface ScourtBoardClient {
 
     @PostMapping("/portal/notice/realestate/RealNoticeList.work")
