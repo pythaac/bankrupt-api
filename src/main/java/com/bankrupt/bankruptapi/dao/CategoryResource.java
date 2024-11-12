@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 public class CategoryResource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

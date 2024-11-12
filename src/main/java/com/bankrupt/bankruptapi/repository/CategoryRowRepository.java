@@ -24,7 +24,7 @@ public interface CategoryRowRepository extends JpaRepository<CategoryRow, Long> 
             FROM category c
             JOIN category_resource cr
             ON c.id = cr.category_id
-            WHERE c.category_id = :category_id
+            WHERE c.category_id = :categoryId
            """, nativeQuery = true)
     List<CategoryRow> findCategoryRowByCategoryId(@Param("categoryId") Long categoryId);
 }
