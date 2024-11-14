@@ -16,20 +16,22 @@ public class PdfboxService {
 
     public String getPdfTextByScourtUrl(String file, String fileName) {
 
-        try {
-            URL url = new URL(downloadUrl + "&file=" + file + "&downFile=" + fileName);
+        if (file.endsWith(".pdf") || file.endsWith(".PDF")) {
+            try {
+                URL url = new URL(downloadUrl + "&file=" + file + "&downFile=" + fileName);
 
-            try(PDDocument pdf = PDDocument.load(url.openStream())) {
-                PDFTextStripper stripper = new PDFTextStripper();
-                return stripper.getText(pdf);
+                try (PDDocument pdf = PDDocument.load(url.openStream())) {
+                    PDFTextStripper stripper = new PDFTextStripper();
+                    return stripper.getText(pdf);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
-                return "";
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
         }
+
+        return "";
     }
 }
