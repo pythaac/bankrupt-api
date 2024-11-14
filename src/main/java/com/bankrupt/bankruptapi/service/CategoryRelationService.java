@@ -15,6 +15,7 @@ public class CategoryRelationService {
     private final CategoryRelationRepository categoryRelationRepository;
 
     private final CategoryRowService categoryRowService;
+    private final PdfboxService pdfboxService;
 
     public void saveAllCategoryRelationByBoard(Board board) {
         Map<Long, List<String>> allCategoryRows = categoryRowService.getAllCategoryRow();
@@ -46,6 +47,7 @@ public class CategoryRelationService {
     }
 
     private boolean isMatched(String category, Board board) {
-        return board.getTitle().contains(category);
+        return board.getTitle().contains(category)
+                || pdfboxService.getPdfTextByScourtUrl(board.getFile(), board.getFileName()).contains(category);
     }
 }
