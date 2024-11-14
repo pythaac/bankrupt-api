@@ -24,12 +24,12 @@ public class PdfboxService {
                 return stripper.getText(pdf);
             } catch (Exception e) {
                 e.printStackTrace();
-                throw e;
+                return "";
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            return "";
         }
     }
 }
