@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class Testcontroller {
+public class CategoryController {
     private final ScourtService scourtService;
 
     @GetMapping(value = "/")
