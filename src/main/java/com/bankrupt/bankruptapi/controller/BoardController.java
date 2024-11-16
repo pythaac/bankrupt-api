@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BoardController {
     private final ScourtService scourtService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/board")
     public String test() {
         scourtService.updateDiff();
         return "done";

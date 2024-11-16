@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
     private final ScourtService scourtService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/category")
     public String test() {
         scourtService.updateDiff();
         return "done";
