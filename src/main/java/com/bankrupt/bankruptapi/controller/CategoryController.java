@@ -1,18 +1,27 @@
 package com.bankrupt.bankruptapi.controller;
 
-import com.bankrupt.bankruptapi.service.ScourtService;
+import com.bankrupt.bankruptapi.dao.Category;
+import com.bankrupt.bankruptapi.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
 @RequiredArgsConstructor
+@RestController(value = "/v1/category")
 public class CategoryController {
-    private final ScourtService scourtService;
+    private final CategoryService categoryService;
 
-    @GetMapping(value = "/category")
-    public String test() {
-        scourtService.updateDiff();
-        return "done";
+    @PostMapping
+    public void createCategory(@RequestBody Category category) {
+        categoryService.saveCategory(category);
+    }
+
+    @PutMapping(value = "/{categoryId}")
+    public void updateCategory(@PathVariable Long categoryId, @RequestBody Category category) {
+        categoryService.updateCategory(categoryId, category);
+    }
+
+    @DeleteMapping(value = "/{categoryId}")
+    public void deleteCategory(@PathVariable Long categoryId) {
+        categoryService.deleteCategory(categoryId);
     }
 }

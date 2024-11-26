@@ -28,6 +28,10 @@ public class BoardService {
         return boardRepository.findAllBoardIds();
     }
 
+    public List<Board> findAllBoardList() {
+        return boardRepository.findAll();
+    }
+
     public List<Board> findAllBoardByCategoryId(Long categoryId) {
         return boardRepository.findAllBoardByCategoryId(categoryId);
     }

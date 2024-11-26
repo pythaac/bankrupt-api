@@ -21,10 +21,11 @@ public class CategoryService {
     }
 
     @Transactional
-    public void updateCategoryName(Long id, String categoryName) {
+    public void updateCategory(Long id, Category category) {
         Category foundCategory = categoryRepository.findById(id).orElseThrow();
-        foundCategory.setCategoryName(categoryName);
-        categoryRepository.save(foundCategory);
+        if (foundCategory != null) {
+            categoryRepository.save(category);
+        }
     }
 
     public List<Category> findAllCategoryByBoardId(Long boardId) {
