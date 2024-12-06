@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Table(name = "category_relation")
 @Entity
 @NoArgsConstructor
@@ -15,7 +17,9 @@ import lombok.NoArgsConstructor;
 public class CategoryRelation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Long boardId;
-    Long categoryId;
+    private Long id;
+    private Long boardId;
+    private Long categoryId;
+    private Timestamp created;
+    private Timestamp updated;
 }

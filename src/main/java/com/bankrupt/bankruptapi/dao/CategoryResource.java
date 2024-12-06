@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+
 @Table(name = "category_resource")
 @Entity
 @NoArgsConstructor
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Service;
 public class CategoryResource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Long categoryId;
-    String category;
+    private Long id;
+    private Long categoryId;
+    private String category;
+    private Timestamp created;
+    private Timestamp updated;
 }

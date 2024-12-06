@@ -10,7 +10,7 @@ public class ScourtBoardDetail {
     String seller;
     String court;
     String title;
-    String created;
+    String uploaded;
     String due;
     String file;
     String fileName;
@@ -22,7 +22,7 @@ public class ScourtBoardDetail {
                 .seller(this.seller)
                 .court(this.court)
                 .title(this.title)
-                .created(this.created)
+                .uploaded(this.uploaded)
                 .due(this.due)
                 .file(this.file)
                 .fileName(this.fileName)

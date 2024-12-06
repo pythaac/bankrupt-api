@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class CategoryRow {
     @Id
-    Long id;
-    String categoryName;
-    String category;
+    private Long id;
+    private String categoryName;
+    private String category;
 }

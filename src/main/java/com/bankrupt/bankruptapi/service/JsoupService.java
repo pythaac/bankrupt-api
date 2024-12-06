@@ -37,7 +37,7 @@ public class JsoupService {
                     } else if ("제목".equals(thElement.text())) {
                         builder.title(tdElement.text());
                     } else if ("작성일".equals(thElement.text())) {
-                        builder.created(tdElement.text());
+                        builder.uploaded(tdElement.text());
                     } else if ("공고만료일".equals(thElement.text())) {
                         builder.due(tdElement.text());
                     } else if ("전화번호".equals(thElement.text())) {
