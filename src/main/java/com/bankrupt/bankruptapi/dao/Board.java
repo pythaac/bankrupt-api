@@ -4,8 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Table(name = "board")
 @Entity
@@ -24,6 +27,8 @@ public class Board {
     private String file;
     private String fileName;
     private String telephoneNumber;
-    private Timestamp created;
-    private Timestamp updated;
+    @CreationTimestamp
+    private LocalDateTime created;
+    @UpdateTimestamp
+    private LocalDateTime updated;
 }

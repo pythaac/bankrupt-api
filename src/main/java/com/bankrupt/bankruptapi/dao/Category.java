@@ -2,8 +2,11 @@ package com.bankrupt.bankruptapi.dao;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Table(name = "category")
 @Entity
@@ -16,6 +19,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String categoryName;
-    private Timestamp created;
-    private Timestamp updated;
+    @CreationTimestamp
+    private LocalDateTime created;
+    @UpdateTimestamp
+    private LocalDateTime updated;
 }

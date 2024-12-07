@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,4 +20,6 @@ public class CategoryRow {
     private Long id;
     private String categoryName;
     private String category;
+    private LocalDateTime created;
+    private LocalDateTime updated;
 }

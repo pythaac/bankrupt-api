@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Table(name = "category_relation")
 @Entity
@@ -20,6 +23,8 @@ public class CategoryRelation {
     private Long id;
     private Long boardId;
     private Long categoryId;
-    private Timestamp created;
-    private Timestamp updated;
+    @CreationTimestamp
+    private LocalDateTime created;
+    @UpdateTimestamp
+    private LocalDateTime updated;
 }

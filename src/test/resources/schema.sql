@@ -18,7 +18,7 @@ CREATE TABLE category (
     id                  BIGINT PRIMARY KEY,
     category_name       TEXT,
     created             TIMESTAMP,
-    updated             TIMESTAMP
+    updated             TIMESTAMP,
 
     CONSTRAINT category_unique UNIQUE (category_name)
 );

@@ -2,9 +2,12 @@ package com.bankrupt.bankruptapi.dao;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Table(name = "category_resource")
 @Entity
@@ -18,6 +21,8 @@ public class CategoryResource {
     private Long id;
     private Long categoryId;
     private String category;
-    private Timestamp created;
-    private Timestamp updated;
+    @CreationTimestamp
+    private LocalDateTime created;
+    @UpdateTimestamp
+    private LocalDateTime updated;
 }
