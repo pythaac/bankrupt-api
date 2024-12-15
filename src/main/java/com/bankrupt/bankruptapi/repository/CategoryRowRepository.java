@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface CategoryRowRepository extends JpaRepository<CategoryRow, Long> {
     @Query(value = """
-            SELECT c.id, c.category_name, cr.category
+            SELECT c.id, c.category_name, cr.category, cr.created, cr.updated
             FROM category c
             JOIN category_resource cr
             ON c.id = cr.category_id
@@ -20,7 +20,7 @@ public interface CategoryRowRepository extends JpaRepository<CategoryRow, Long> 
     List<CategoryRow> findAllCategoryRows();
 
     @Query(value = """
-            SELECT c.id, c.category_name, cr.category
+            SELECT c.id, c.category_name, cr.category, cr.created, cr.updated
             FROM category c
             JOIN category_resource cr
             ON c.id = cr.category_id

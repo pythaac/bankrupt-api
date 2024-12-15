@@ -5,16 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class PdfboxServiceTest {
+@Disabled
+class HwpLibServiceTest {
     @Autowired
-    PdfboxService pdfboxService;
+    HwpLibService hwpLibService;
 
     @Test
-    void test() {
-        String pdf = pdfboxService.getPdfTextByScourtUrl("1730349566354_133926.pdf", "test.pdf");
-        System.out.println(pdf);
+    void getHwpTextByScourtUrl() {
+        String hwp = hwpLibService.getHwpTextByScourtUrl("1729577132245_150532.hwp", "test.hwp");
+        System.out.println(hwp);
     }
 }

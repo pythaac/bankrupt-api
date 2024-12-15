@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Table(name = "category_relation")
 @Entity
@@ -15,7 +20,11 @@ import lombok.NoArgsConstructor;
 public class CategoryRelation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Long boardId;
-    Long categoryId;
+    private Long id;
+    private Long boardId;
+    private Long categoryId;
+    @CreationTimestamp
+    private LocalDateTime created;
+    @UpdateTimestamp
+    private LocalDateTime updated;
 }

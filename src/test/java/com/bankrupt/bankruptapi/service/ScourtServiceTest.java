@@ -5,16 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class PdfboxServiceTest {
+@Disabled
+class ScourtServiceTest {
     @Autowired
-    PdfboxService pdfboxService;
+    private ScourtService scourtService;
 
     @Test
     void test() {
-        String pdf = pdfboxService.getPdfTextByScourtUrl("1730349566354_133926.pdf", "test.pdf");
-        System.out.println(pdf);
+        scourtService.updateDiff(new ReentrantLock());
     }
 }
