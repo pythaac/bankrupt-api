@@ -4,12 +4,14 @@ import com.bankrupt.bankruptapi.feign.ScourtBoardClient;
 import com.bankrupt.bankruptapi.dao.Board;
 import com.bankrupt.bankruptapi.model.ScourtBoardDetail;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 @RequiredArgsConstructor
@@ -18,36 +20,41 @@ public class ScourtService {
     private final JsoupService jsoupService;
     private final BoardService boardService;
 
-    public void updateDiff() {
-        List<Long> idsFromScourt = getAllScourtBoardId();
-        List<Long> idsFromDb = boardService.findAllBoardIdList();
+    public void updateDiff(ReentrantLock lock) {
 
-        // Not in DB -> insert
-        List<Long> insertIdList = idsFromScourt.stream()
-                .parallel()
-                .filter(court -> !idsFromDb.contains(court))
-                .toList();
+        try {
+            List<Long> idsFromScourt = getAllScourtBoardId();
+            List<Long> idsFromDb = boardService.findAllBoardIdList();
 
-        // Not in Court -> delete
-        List<Long> deleteIdList = idsFromDb.stream()
-                .parallel()
-                .filter(db -> !idsFromScourt.contains(db))
-                .toList();
+            // Not in DB -> insert
+            List<Long> insertIdList = idsFromScourt.stream()
+                    .parallel()
+                    .filter(court -> !idsFromDb.contains(court))
+                    .toList();
 
-        if (!insertIdList.isEmpty()) {
-            ArrayList<Board> insertBoardList = new ArrayList<>();
+            // Not in Court -> delete
+            List<Long> deleteIdList = idsFromDb.stream()
+                    .parallel()
+                    .filter(db -> !idsFromScourt.contains(db))
+                    .toList();
 
-            for (Long seqId : insertIdList) {
-                ScourtBoardDetail boardDetail = getScourtBoardDetail(seqId);
-                Board board = boardDetail.toBoard(seqId);
-                insertBoardList.add(board);
+            if (!insertIdList.isEmpty()) {
+                ArrayList<Board> insertBoardList = new ArrayList<>();
+
+                for (Long seqId : insertIdList) {
+                    ScourtBoardDetail boardDetail = getScourtBoardDetail(seqId);
+                    Board board = boardDetail.toBoard(seqId);
+                    insertBoardList.add(board);
+                }
+
+                boardService.saveBoardList(insertBoardList);
             }
 
-            boardService.saveBoardList(insertBoardList);
-        }
-
-        if (!deleteIdList.isEmpty()) {
-            boardService.deleteByBoardIdList(deleteIdList);
+            if (!deleteIdList.isEmpty()) {
+                boardService.deleteByBoardIdList(deleteIdList);
+            }
+        } finally {
+            lock.unlock();
         }
     }
 

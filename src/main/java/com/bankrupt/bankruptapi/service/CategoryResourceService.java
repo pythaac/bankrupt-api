@@ -11,13 +11,17 @@ import org.springframework.stereotype.Service;
 public class CategoryResourceService {
     private final CategoryResourceRepository categoryResourceRepository;
 
+    private final CategoryRelationService categoryRelationService;
+
     public void saveCategoryResource(CategoryResource categoryResource) {
         categoryResourceRepository.save(categoryResource);
     }
 
-    public void updateCategoryResourceCategory(Long id, String category) {
+    public void updateCategoryResourceCategory(Long id, CategoryResource categoryResource) {
         CategoryResource foundCategoryResource = categoryResourceRepository.findById(id).orElseThrow();
-        foundCategoryResource.setCategory(category);
+
+        foundCategoryResource.setCategoryId(categoryResource.getCategoryId());
+        foundCategoryResource.setKeyword(categoryResource.getKeyword());
         categoryResourceRepository.save(foundCategoryResource);
     }
 
