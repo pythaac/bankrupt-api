@@ -27,9 +27,11 @@ DROP TABLE IF EXISTS category_resource;
 CREATE TABLE category_resource (
     id                  BIGINT PRIMARY KEY,
     category_id         BIGINT,
-    category            TEXT,
+    keyword             TEXT,
     created             TIMESTAMP,
-    updated             TIMESTAMP
+    updated             TIMESTAMP,
+
+    CONSTRAINT category_resource_unique UNIQUE (keyword)
 );
 
 DROP TABLE IF EXISTS category_relation;
