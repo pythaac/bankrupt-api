@@ -6,12 +6,20 @@ import com.bankrupt.bankruptapi.repository.CategoryResourceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class CategoryResourceService {
     private final CategoryResourceRepository categoryResourceRepository;
 
-    private final CategoryRelationService categoryRelationService;
+    public List<CategoryResource> findAllCategoryResources() {
+        return categoryResourceRepository.findAll();
+    }
+
+    public List<CategoryResource> findAllCategoryResourcesByCategoryId(Long categoryId) {
+        return categoryResourceRepository.findAllByCategoryId(categoryId);
+    }
 
     public void saveCategoryResource(CategoryResource categoryResource) {
         categoryResourceRepository.save(categoryResource);

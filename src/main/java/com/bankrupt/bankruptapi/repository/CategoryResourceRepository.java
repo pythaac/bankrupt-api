@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface CategoryResourceRepository extends JpaRepository<CategoryResource, Long> {
 
+    List<CategoryResource> findAllByCategoryId(Long categoryId);
     void deleteAllByCategoryId(Long categoryId);
-
 }
