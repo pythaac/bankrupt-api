@@ -16,6 +16,18 @@ public class CategoryService {
     private final CategoryResourceService categoryResourceService;
     private final CategoryRelationService categoryRelationService;
 
+    public List<Category> findAllCategory() {
+        return categoryRepository.findAll();
+    }
+
+    public Category findCategoryById(Long categoryId) {
+        return categoryRepository.findById(categoryId).orElseThrow();
+    }
+
+    public List<Category> findAllCategoryByBoardId(Long boardId) {
+        return categoryRepository.findAllCateogryByBoardId(boardId);
+    }
+
     public void saveCategory(Category category) {
         categoryRepository.save(category);
     }
@@ -26,10 +38,6 @@ public class CategoryService {
         if (foundCategory != null) {
             categoryRepository.save(category);
         }
-    }
-
-    public List<Category> findAllCategoryByBoardId(Long boardId) {
-        return categoryRepository.findAllCateogryByBoardId(boardId);
     }
 
     public void deleteCategory(Long id) {
