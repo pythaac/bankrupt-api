@@ -21,7 +21,7 @@ public class BoardController {
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size,
             @RequestParam(required = false, defaultValue = "uploaded")
-                @Pattern(regexp = "uploaded|index|seller|title|due|category") String sort,
+                @Pattern(regexp = "uploaded|court|seller|title|due") String sort,
             @RequestParam(required = false, defaultValue = "desc")
                 @Pattern(regexp = "asc|desc") String direction
         ) {
