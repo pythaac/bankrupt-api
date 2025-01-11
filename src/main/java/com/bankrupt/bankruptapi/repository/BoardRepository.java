@@ -1,6 +1,7 @@
 package com.bankrupt.bankruptapi.repository;
 
 import com.bankrupt.bankruptapi.dao.Board;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
         JOIN category_relation cr ON b.id = cr.board_id
         WHERE cr.category_id = :categoryId
     """, nativeQuery = true)
-    List<Board> findAllBoardByCategoryId(Long categoryId);
+    List<Board> findAllBoardByCategoryId(Long categoryId, Pageable pageable);
 
     @Query(value = """
         SELECT updated

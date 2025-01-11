@@ -36,8 +36,9 @@ public class BoardService {
         return boardRepository.findAll(pageable).getContent();
     }
 
-    public List<Board> findAllBoardByCategoryId(Long categoryId) {
-        return boardRepository.findAllBoardByCategoryId(categoryId);
+    public List<Board> findAllBoardByCategoryId(Long categoryId, Integer page, Integer size, String sort, String direction) {
+        Pageable pageable = getPageRequest(page, size, sort, direction);
+        return boardRepository.findAllBoardByCategoryId(categoryId, pageable);
     }
 
     @Transactional

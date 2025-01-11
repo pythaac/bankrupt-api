@@ -24,12 +24,20 @@ public class BoardController {
                 @Pattern(regexp = "uploaded|court|seller|title|due") String sort,
             @RequestParam(required = false, defaultValue = "desc")
                 @Pattern(regexp = "asc|desc") String direction
-        ) {
+    ) {
         return boardService.findAllBoardList(page, size, sort, direction);
     }
 
     @GetMapping(value = "/{categoryId}")
-    public List<Board> getBoardById(@PathVariable Long categoryId) {
-        return boardService.findAllBoardByCategoryId(categoryId);
+    public List<Board> getBoardById(
+            @PathVariable Long categoryId,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size,
+            @RequestParam(required = false, defaultValue = "uploaded")
+            @Pattern(regexp = "uploaded|court|seller|title|due") String sort,
+            @RequestParam(required = false, defaultValue = "desc")
+            @Pattern(regexp = "asc|desc") String direction
+    ) {
+        return boardService.findAllBoardByCategoryId(categoryId, page, size, sort, direction);
     }
 }
