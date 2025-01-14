@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController(value = "/v1/category/resource")
+@RestController
+@RequestMapping(value = "/v1/category/resource")
 public class CategoryResourceController {
     private final CategoryResourceService categoryResourceService;
 
