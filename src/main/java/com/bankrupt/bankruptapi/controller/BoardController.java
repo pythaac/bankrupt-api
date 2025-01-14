@@ -3,16 +3,14 @@ package com.bankrupt.bankruptapi.controller;
 import com.bankrupt.bankruptapi.dao.Board;
 import com.bankrupt.bankruptapi.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import jakarta.validation.constraints.Pattern;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController(value = "/v1/board")
+@RestController
+@RequestMapping(value = "/v1/board")
 public class BoardController {
     private final BoardService boardService;
 

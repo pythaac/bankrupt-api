@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController(value = "/v1/category")
+@RestController
+@RequestMapping(value = "/v1/category")
 public class CategoryController {
     private final CategoryService categoryService;
 
