@@ -27,7 +27,7 @@ public class CategoryResourceController {
     @PutMapping(value = "/{categoryResourceId}")
     public void updateCategoryResource(
             @PathVariable Long categoryResourceId,
-            @RequestBody CategoryResource categoryResource) {
+            @RequestBody CategoryResourceDto categoryResource) {
         categoryResourceService.updateCategoryResourceCategory(categoryResourceId, categoryResource);
     }
 

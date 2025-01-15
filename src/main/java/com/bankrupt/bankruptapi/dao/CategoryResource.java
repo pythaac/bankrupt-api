@@ -24,11 +24,4 @@ public class CategoryResource {
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime updated;
-
-    public static CategoryResource of(CategoryResourceDto categoryResourceDto) {
-        return CategoryResource.builder()
-                .categoryId(categoryResourceDto.getCategoryId())
-                .keyword(categoryResourceDto.getKeyword())
-                .build();
-    }
 }

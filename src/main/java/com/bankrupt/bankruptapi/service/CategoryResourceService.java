@@ -22,13 +22,16 @@ public class CategoryResourceService {
     }
 
     public void saveCategoryResource(CategoryResourceDto categoryResourceDto) {
-        categoryResourceRepository.save(CategoryResource.of(categoryResourceDto));
+        CategoryResource categoryResource = CategoryResource.builder()
+                .categoryId(categoryResourceDto.getCategoryId())
+                .keyword(categoryResourceDto.getKeyword())
+                .build();
+
+        categoryResourceRepository.save(categoryResource);
     }
 
-    public void updateCategoryResourceCategory(Long id, CategoryResource categoryResource) {
+    public void updateCategoryResourceCategory(Long id, CategoryResourceDto categoryResource) {
         CategoryResource foundCategoryResource = categoryResourceRepository.findById(id).orElseThrow();
-
-        foundCategoryResource.setCategoryId(categoryResource.getCategoryId());
         foundCategoryResource.setKeyword(categoryResource.getKeyword());
         categoryResourceRepository.save(foundCategoryResource);
     }
