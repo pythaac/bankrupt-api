@@ -1,6 +1,7 @@
 package com.bankrupt.bankruptapi.service;
 
 import com.bankrupt.bankruptapi.dao.CategoryResource;
+import com.bankrupt.bankruptapi.dto.CategoryResourceDto;
 import com.bankrupt.bankruptapi.repository.CategoryResourceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class CategoryResourceService {
         return categoryResourceRepository.findAllByCategoryId(categoryId);
     }
 
-    public void saveCategoryResource(CategoryResource categoryResource) {
-        categoryResourceRepository.save(categoryResource);
+    public void saveCategoryResource(CategoryResourceDto categoryResourceDto) {
+        categoryResourceRepository.save(CategoryResource.of(categoryResourceDto));
     }
 
     public void updateCategoryResourceCategory(Long id, CategoryResource categoryResource) {

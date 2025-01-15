@@ -1,5 +1,6 @@
 package com.bankrupt.bankruptapi.dao;
 
+import com.bankrupt.bankruptapi.dto.CategoryResourceDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,4 +24,11 @@ public class CategoryResource {
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime updated;
+
+    public static CategoryResource of(CategoryResourceDto categoryResourceDto) {
+        return CategoryResource.builder()
+                .categoryId(categoryResourceDto.getCategoryId())
+                .keyword(categoryResourceDto.getKeyword())
+                .build();
+    }
 }
