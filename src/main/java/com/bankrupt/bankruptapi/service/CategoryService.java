@@ -1,6 +1,7 @@
 package com.bankrupt.bankruptapi.service;
 
 import com.bankrupt.bankruptapi.dao.Category;
+import com.bankrupt.bankruptapi.dto.CategoryDto;
 import com.bankrupt.bankruptapi.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -33,11 +34,12 @@ public class CategoryService {
     }
 
     @Transactional
-    public void updateCategory(Long id, Category category) {
+    public void updateCategory(Long id, CategoryDto category) {
         Category foundCategory = categoryRepository.findById(id).orElseThrow();
-        if (foundCategory != null) {
-            categoryRepository.save(category);
-        }
+
+        String categoryName = category.getCategoryName();
+        foundCategory.setCategoryName(categoryName);
+        categoryRepository.save(foundCategory);
     }
 
     public void deleteCategory(Long id) {

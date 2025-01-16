@@ -1,6 +1,7 @@
 package com.bankrupt.bankruptapi.controller;
 
 import com.bankrupt.bankruptapi.dao.Board;
+import com.bankrupt.bankruptapi.dto.BoardDto;
 import com.bankrupt.bankruptapi.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping
-    public List<Board> getAllBoard(
+    public List<BoardDto> getAllBoard(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "uploaded")
@@ -27,7 +28,7 @@ public class BoardController {
     }
 
     @GetMapping(value = "/{categoryId}")
-    public List<Board> getBoardById(
+    public List<BoardDto> getBoardById(
             @PathVariable Long categoryId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size,

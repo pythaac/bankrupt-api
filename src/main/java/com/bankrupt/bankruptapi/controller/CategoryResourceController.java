@@ -2,6 +2,7 @@ package com.bankrupt.bankruptapi.controller;
 
 import com.bankrupt.bankruptapi.dao.Category;
 import com.bankrupt.bankruptapi.dao.CategoryResource;
+import com.bankrupt.bankruptapi.dto.CategoryResourceDto;
 import com.bankrupt.bankruptapi.model.CategoryBundle;
 import com.bankrupt.bankruptapi.service.CategoryBundleService;
 import com.bankrupt.bankruptapi.service.CategoryResourceService;
@@ -19,14 +20,14 @@ public class CategoryResourceController {
     private final CategoryResourceService categoryResourceService;
 
     @PostMapping
-    public void createCategoryResource(@RequestBody CategoryResource categoryResource) {
+    public void createCategoryResource(@RequestBody CategoryResourceDto categoryResource) {
         categoryResourceService.saveCategoryResource(categoryResource);
     }
 
     @PutMapping(value = "/{categoryResourceId}")
     public void updateCategoryResource(
             @PathVariable Long categoryResourceId,
-            @RequestBody CategoryResource categoryResource) {
+            @RequestBody CategoryResourceDto categoryResource) {
         categoryResourceService.updateCategoryResourceCategory(categoryResourceId, categoryResource);
     }
 

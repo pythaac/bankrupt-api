@@ -1,5 +1,6 @@
 package com.bankrupt.bankruptapi.dao;
 
+import com.bankrupt.bankruptapi.dto.CategoryResourceDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

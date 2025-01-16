@@ -1,6 +1,7 @@
 package com.bankrupt.bankruptapi.service;
 
 import com.bankrupt.bankruptapi.dao.Board;
+import com.bankrupt.bankruptapi.dto.BoardDto;
 import com.bankrupt.bankruptapi.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -18,27 +19,39 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     private final CategoryRelationService categoryRelationService;
+    private final CategoryService categoryService;
 
     @Transactional
-    public void saveBoardList(ArrayList<Board> boardList) {
-        boardList.forEach(board -> {
-            boardRepository.save(board);
-            categoryRelationService.saveAllCategoryRelationByBoard(board);
-        });
+    public void saveBoard(Board board) {
+        boardRepository.save(board);
+        categoryRelationService.saveAllCategoryRelationByBoard(board);
+    }
+
+    @Transactional
+    public void saveBoardList(List<Board> boardList) {
+        boardList.forEach(this::saveBoard);
     }
 
     public List<Long> findAllBoardIdList() {
         return boardRepository.findAllBoardIds();
     }
 
-    public List<Board> findAllBoardList(Integer page, Integer size, String sort, String direction) {
+    public List<BoardDto> findAllBoardList(Integer page, Integer size, String sort, String direction) {
         Pageable pageable = getPageRequest(page, size, sort, direction);
-        return boardRepository.findAll(pageable).getContent();
+        List<Board> boards = boardRepository.findAll(pageable).getContent();
+
+        return boards.stream()
+                .map(board -> BoardDto.of(board, categoryService.findAllCategoryByBoardId(board.getId())))
+                .toList();
     }
 
-    public List<Board> findAllBoardByCategoryId(Long categoryId, Integer page, Integer size, String sort, String direction) {
+    public List<BoardDto> findAllBoardByCategoryId(Long categoryId, Integer page, Integer size, String sort, String direction) {
         Pageable pageable = getPageRequest(page, size, sort, direction);
-        return boardRepository.findAllBoardByCategoryId(categoryId, pageable);
+        List<Board> boards = boardRepository.findAllBoardByCategoryId(categoryId, pageable);
+
+        return boards.stream()
+                .map(board -> BoardDto.of(board, categoryService.findAllCategoryByBoardId(board.getId())))
+                .toList();
     }
 
     @Transactional

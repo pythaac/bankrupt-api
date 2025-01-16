@@ -1,6 +1,7 @@
 package com.bankrupt.bankruptapi.controller;
 
 import com.bankrupt.bankruptapi.dao.Category;
+import com.bankrupt.bankruptapi.dto.CategoryDto;
 import com.bankrupt.bankruptapi.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class CategoryController {
     }
 
     @PutMapping(value = "/{categoryId}")
-    public void updateCategory(@PathVariable Long categoryId, @RequestBody Category category) {
+    public void updateCategory(@PathVariable Long categoryId, @RequestBody CategoryDto category) {
         categoryService.updateCategory(categoryId, category);
     }
 
