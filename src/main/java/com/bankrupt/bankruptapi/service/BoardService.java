@@ -20,11 +20,14 @@ public class BoardService {
     private final CategoryRelationService categoryRelationService;
 
     @Transactional
-    public void saveBoardList(ArrayList<Board> boardList) {
-        boardList.forEach(board -> {
-            boardRepository.save(board);
-            categoryRelationService.saveAllCategoryRelationByBoard(board);
-        });
+    public void saveBoard(Board board) {
+        boardRepository.save(board);
+        categoryRelationService.saveAllCategoryRelationByBoard(board);
+    }
+
+    @Transactional
+    public void saveBoardList(List<Board> boardList) {
+        boardList.forEach(this::saveBoard);
     }
 
     public List<Long> findAllBoardIdList() {

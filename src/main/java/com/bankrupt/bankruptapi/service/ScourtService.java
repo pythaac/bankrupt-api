@@ -39,15 +39,7 @@ public class ScourtService {
                     .toList();
 
             if (!insertIdList.isEmpty()) {
-                ArrayList<Board> insertBoardList = new ArrayList<>();
-
-                for (Long seqId : insertIdList) {
-                    ScourtBoardDetail boardDetail = getScourtBoardDetail(seqId);
-                    Board board = boardDetail.toBoard(seqId);
-                    insertBoardList.add(board);
-                }
-
-                boardService.saveBoardList(insertBoardList);
+                insertIdList.stream().parallel().forEach(this::saveBoardBySeqId);
             }
 
             if (!deleteIdList.isEmpty()) {
@@ -56,6 +48,12 @@ public class ScourtService {
         } finally {
             lock.unlock();
         }
+    }
+
+    private void saveBoardBySeqId(Long seqId) {
+        ScourtBoardDetail boardDetail = getScourtBoardDetail(seqId);
+        Board board = boardDetail.toBoard(seqId);
+        boardService.saveBoard(board);
     }
 
     private ArrayList<Long> getAllScourtBoardId() {
