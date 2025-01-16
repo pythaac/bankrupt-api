@@ -15,6 +15,11 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
 
+    @GetMapping(value = "/count")
+    public Long getTotalBoardCount() {
+        return boardService.getTotalBoardCount();
+    }
+
     @GetMapping
     public List<BoardDto> getAllBoard(
             @RequestParam(required = false, defaultValue = "1") Integer page,
