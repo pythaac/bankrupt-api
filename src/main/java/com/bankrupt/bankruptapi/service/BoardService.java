@@ -21,6 +21,10 @@ public class BoardService {
     private final CategoryRelationService categoryRelationService;
     private final CategoryService categoryService;
 
+    public Long getTotalBoardCount() {
+        return boardRepository.count();
+    }
+
     @Transactional
     public void saveBoard(Board board) {
         boardRepository.save(board);
