@@ -3,6 +3,7 @@ package com.bankrupt.bankruptapi.service;
 import com.bankrupt.bankruptapi.dao.Category;
 import com.bankrupt.bankruptapi.dao.CategoryResource;
 import com.bankrupt.bankruptapi.dto.CategoryDto;
+import com.bankrupt.bankruptapi.dto.CategoryResourceDto;
 import com.bankrupt.bankruptapi.model.CategoryBundle;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,8 @@ public class CategoryBundleService {
                 categoryResourceService.findAllCategoryResourcesByCategoryId(categoryId);
 
         return CategoryBundle.builder()
-                .category(category)
-                .categoryResources(categoryResources)
+                .category(CategoryDto.of(category))
+                .categoryResources(categoryResources.stream().map(CategoryResourceDto::of).toList())
                 .build();
     }
 }

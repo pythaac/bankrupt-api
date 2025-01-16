@@ -1,5 +1,6 @@
 package com.bankrupt.bankruptapi.dto;
 
+import com.bankrupt.bankruptapi.dao.CategoryResource;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,4 +13,11 @@ import lombok.NoArgsConstructor;
 public class CategoryResourceDto {
     private Long categoryId;
     private String keyword;
+
+    public static CategoryResourceDto of(CategoryResource categoryResource) {
+        return CategoryResourceDto.builder()
+                .categoryId(categoryResource.getId())
+                .keyword(categoryResource.getKeyword())
+                .build();
+    }
 }
