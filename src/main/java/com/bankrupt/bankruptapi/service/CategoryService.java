@@ -17,8 +17,9 @@ public class CategoryService {
     private final CategoryResourceService categoryResourceService;
     private final CategoryRelationService categoryRelationService;
 
-    public List<Category> findAllCategory() {
-        return categoryRepository.findAll();
+    public List<CategoryDto> findAllCategory() {
+        List<Category> categories = categoryRepository.findAll();
+        return categories.stream().map(CategoryDto::of).toList();
     }
 
     public Category findCategoryById(Long categoryId) {
