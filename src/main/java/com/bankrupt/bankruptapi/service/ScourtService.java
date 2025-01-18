@@ -4,14 +4,12 @@ import com.bankrupt.bankruptapi.feign.ScourtBoardClient;
 import com.bankrupt.bankruptapi.dao.Board;
 import com.bankrupt.bankruptapi.model.ScourtBoardDetail;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 @RequiredArgsConstructor
@@ -20,33 +18,29 @@ public class ScourtService {
     private final JsoupService jsoupService;
     private final BoardService boardService;
 
-    public void updateDiff(ReentrantLock lock) {
+    public void updateDiff() {
 
-        try {
-            List<Long> idsFromScourt = getAllScourtBoardId();
-            List<Long> idsFromDb = boardService.findAllBoardIdList();
+        List<Long> idsFromScourt = getAllScourtBoardId();
+        List<Long> idsFromDb = boardService.findAllBoardIdList();
 
-            // Not in DB -> insert
-            List<Long> insertIdList = idsFromScourt.stream()
-                    .parallel()
-                    .filter(court -> !idsFromDb.contains(court))
-                    .toList();
+        // Not in DB -> insert
+        List<Long> insertIdList = idsFromScourt.stream()
+                .parallel()
+                .filter(court -> !idsFromDb.contains(court))
+                .toList();
 
-            // Not in Court -> delete
-            List<Long> deleteIdList = idsFromDb.stream()
-                    .parallel()
-                    .filter(db -> !idsFromScourt.contains(db))
-                    .toList();
+        // Not in Court -> delete
+        List<Long> deleteIdList = idsFromDb.stream()
+                .parallel()
+                .filter(db -> !idsFromScourt.contains(db))
+                .toList();
 
-            if (!insertIdList.isEmpty()) {
-                insertIdList.stream().parallel().forEach(this::saveBoardBySeqId);
-            }
+        if (!insertIdList.isEmpty()) {
+            insertIdList.stream().parallel().forEach(this::saveBoardBySeqId);
+        }
 
-            if (!deleteIdList.isEmpty()) {
-                boardService.deleteByBoardIdList(deleteIdList);
-            }
-        } finally {
-            lock.unlock();
+        if (!deleteIdList.isEmpty()) {
+            boardService.deleteByBoardIdList(deleteIdList);
         }
     }
 

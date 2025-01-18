@@ -17,6 +17,6 @@ class ScourtServiceTest {
 
     @Test
     void test() {
-        scourtService.updateDiff(new ReentrantLock());
+        scourtService.updateDiff();
     }
 }

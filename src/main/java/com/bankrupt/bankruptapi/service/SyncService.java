@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ConcurrentModificationException;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Service
@@ -14,7 +15,7 @@ public class SyncService {
     private final BoardRepository boardRepository;
     private final ScourtService scourtService;
 
-    private static final ReentrantLock lock = new ReentrantLock();
+    private static CompletableFuture<Void> syncTask = CompletableFuture.completedFuture(null);
 
     public LocalDateTime getSyncTime() {
         return boardRepository.findLatestUpdated();
@@ -22,10 +23,9 @@ public class SyncService {
 
     public void syncScourt() {
 
-        if (lock.isLocked()) {
+        if (!syncTask.isDone()) {
             throw new ConcurrentModificationException();
         }
-        lock.lock();
-        scourtService.updateDiff(lock);
+        syncTask = CompletableFuture.runAsync(scourtService::updateDiff);
     }
 }
