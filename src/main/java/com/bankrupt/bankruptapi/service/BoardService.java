@@ -70,9 +70,9 @@ public class BoardService {
 
     private PageRequest getPageRequest(Integer page, Integer size, String sort, String direction) {
         if ("asc".equals(direction)) {
-            return PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, sort));
+            return PageRequest.of(page-1, size, Sort.by(Sort.Direction.ASC, sort));
         } else {
-            return PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, sort));
+            return PageRequest.of(page-1, size, Sort.by(Sort.Direction.DESC, sort));
         }
     }
 }
