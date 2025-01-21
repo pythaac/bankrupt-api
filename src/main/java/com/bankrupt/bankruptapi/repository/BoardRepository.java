@@ -23,15 +23,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findAllBoardByCategoryId(Long categoryId, Pageable pageable);
 
     @Query(value = """
-        SELECT updated
-        FROM (SELECT updated, (ROW_NUMBER() OVER ()) AS row
-        FROM board b
-        ORDER BY updated DESC)
-        WHERE row = 1
-    """, nativeQuery = true)
-    LocalDateTime findLatestUpdated();
-
-    @Query(value = """
         SELECT COUNT(b.*)
         FROM board b
         JOIN category_relation cr ON b.id = cr.board_id
