@@ -30,4 +30,11 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
         WHERE row = 1
     """, nativeQuery = true)
     LocalDateTime findLatestUpdated();
+
+    @Query(value = """
+        SELECT COUNT(*) 
+        FROM board b 
+        WHERE b.category_id = :categoryId
+    """, nativeQuery = true)
+    Long countByCategoryId(Long categoryId);
 }
