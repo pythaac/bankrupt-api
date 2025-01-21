@@ -24,8 +24,8 @@ public class BoardController {
     public List<BoardDto> getAllBoard(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size,
-            @RequestParam(defaultValue = "uploaded")
-                @Pattern(regexp = "uploaded|court|seller|title|due") String sort,
+            @RequestParam(defaultValue = "id")
+                @Pattern(regexp = "id|uploaded|court|seller|title|due") String sort,
             @RequestParam(defaultValue = "desc")
                 @Pattern(regexp = "asc|desc") String direction
     ) {
@@ -37,8 +37,8 @@ public class BoardController {
             @PathVariable Long categoryId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size,
-            @RequestParam(required = false, defaultValue = "uploaded")
-                @Pattern(regexp = "uploaded|court|seller|title|due") String sort,
+            @RequestParam(required = false, defaultValue = "id")
+                @Pattern(regexp = "id|uploaded|court|seller|title|due") String sort,
             @RequestParam(required = false, defaultValue = "desc")
                 @Pattern(regexp = "asc|desc") String direction
     ) {
