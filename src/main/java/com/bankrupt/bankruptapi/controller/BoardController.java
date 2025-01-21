@@ -16,8 +16,8 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping(value = "/count")
-    public Long getTotalBoardCount() {
-        return boardService.getTotalBoardCount();
+    public Long getTotalBoardCount(@RequestParam(required = false) Long categoryId) {
+        return boardService.getTotalBoardCount(categoryId);
     }
 
     @GetMapping

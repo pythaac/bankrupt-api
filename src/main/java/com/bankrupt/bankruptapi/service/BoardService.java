@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -21,8 +22,11 @@ public class BoardService {
     private final CategoryRelationService categoryRelationService;
     private final CategoryService categoryService;
 
-    public Long getTotalBoardCount() {
-        return boardRepository.count();
+    public Long getTotalBoardCount(Long categoryId) {
+        if (Objects.isNull(categoryId)) {
+            return boardRepository.count();
+        }
+        return boardRepository.countByCategoryId(categoryId);
     }
 
     @Transactional
