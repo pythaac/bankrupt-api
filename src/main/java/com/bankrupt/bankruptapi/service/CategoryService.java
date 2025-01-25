@@ -30,8 +30,8 @@ public class CategoryService {
         return categoryRepository.findAllCateogryByBoardId(boardId);
     }
 
-    public void saveCategory(Category category) {
-        categoryRepository.save(category);
+    public void saveCategory(CategoryDto categoryDto) {
+        categoryRepository.save(Category.of(categoryDto));
     }
 
     @Transactional

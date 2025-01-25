@@ -20,8 +20,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void createCategory(@RequestBody Category category) {
-        categoryService.saveCategory(category);
+    public void createCategory(@RequestBody CategoryDto categoryDto) {
+        categoryService.saveCategory(categoryDto);
     }
 
     @PutMapping(value = "/{categoryId}")
