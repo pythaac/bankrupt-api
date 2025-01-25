@@ -11,12 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class CategoryResourceDto {
+    private Long categoryResourceId;
     private Long categoryId;
     private String keyword;
 
     public static CategoryResourceDto of(CategoryResource categoryResource) {
         return CategoryResourceDto.builder()
-                .categoryId(categoryResource.getId())
+                .categoryResourceId(categoryResource.getId())
+                .categoryId(categoryResource.getCategoryId())
                 .keyword(categoryResource.getKeyword())
                 .build();
     }

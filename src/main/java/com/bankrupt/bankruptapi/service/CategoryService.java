@@ -43,6 +43,7 @@ public class CategoryService {
         categoryRepository.save(foundCategory);
     }
 
+    @Transactional
     public void deleteCategory(Long id) {
         categoryResourceService.deleteAllCategoryResourceByCategoryId(id);
         categoryRelationService.deleteAllCategoryRelationByCategoryId(id);
