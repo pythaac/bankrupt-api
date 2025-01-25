@@ -1,6 +1,9 @@
 package com.bankrupt.bankruptapi.dto;
 
 import com.bankrupt.bankruptapi.dao.Category;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class CategoryDto {
     private Long id;
+    @NotBlank
     private String categoryName;
 
     public static CategoryDto of(Category category) {

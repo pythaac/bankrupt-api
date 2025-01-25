@@ -1,5 +1,6 @@
 package com.bankrupt.bankruptapi.dao;
 
+import com.bankrupt.bankruptapi.dto.CategoryDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,4 +24,11 @@ public class Category {
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime updated;
+
+    public static Category of(CategoryDto categoryDto) {
+        return Category.builder()
+                .id(categoryDto.getId())
+                .categoryName(categoryDto.getCategoryName())
+                .build();
+    }
 }
