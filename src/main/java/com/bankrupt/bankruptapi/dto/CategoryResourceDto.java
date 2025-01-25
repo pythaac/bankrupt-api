@@ -1,6 +1,7 @@
 package com.bankrupt.bankruptapi.dto;
 
 import com.bankrupt.bankruptapi.dao.CategoryResource;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class CategoryResourceDto {
     private Long categoryResourceId;
     private Long categoryId;
+    @NotNull
     private String keyword;
 
     public static CategoryResourceDto of(CategoryResource categoryResource) {

@@ -4,6 +4,7 @@ import com.bankrupt.bankruptapi.dao.Category;
 import com.bankrupt.bankruptapi.dto.CategoryDto;
 import com.bankrupt.bankruptapi.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,12 +21,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void createCategory(@RequestBody CategoryDto categoryDto) {
+    public void createCategory(@RequestBody @Validated CategoryDto categoryDto) {
         categoryService.saveCategory(categoryDto);
     }
 
     @PutMapping(value = "/{categoryId}")
-    public void updateCategory(@PathVariable Long categoryId, @RequestBody CategoryDto category) {
+    public void updateCategory(@PathVariable Long categoryId, @RequestBody @Validated CategoryDto category) {
         categoryService.updateCategory(categoryId, category);
     }
 
