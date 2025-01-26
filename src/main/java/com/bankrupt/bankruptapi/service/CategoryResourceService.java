@@ -17,8 +17,8 @@ import java.util.Map;
 @AllArgsConstructor
 public class CategoryResourceService {
     private final CategoryResourceRepository categoryResourceRepository;
+    private final BoardRepository boardRepository;
 
-    private final BoardService boardService;
     private final CategoryRelationService categoryRelationService;
 
     public List<CategoryResource> findAllCategoryResources() {
@@ -67,7 +67,7 @@ public class CategoryResourceService {
         Map.Entry<Long, List<CategoryResource>> entry =
                 new AbstractMap.SimpleEntry<>(categoryId, allCategoryResourcesByCategoryId);
 
-        List<Board> boards = boardService.findAll();
+        List<Board> boards = boardRepository.findAll();
 
         boards.stream().parallel()
                 .forEach(board -> categoryRelationService.saveCategoryRelation(entry, board));
@@ -79,7 +79,7 @@ public class CategoryResourceService {
         Map.Entry<Long, List<CategoryResource>> entry =
                 new AbstractMap.SimpleEntry<>(categoryId, allCategoryResourcesByCategoryId);
 
-        List<Board> boards = boardService.findAll();
+        List<Board> boards = boardRepository.findAll();
 
         boards.stream().parallel()
                 .forEach(board -> categoryRelationService.updateCategoryRelation(entry, board));
