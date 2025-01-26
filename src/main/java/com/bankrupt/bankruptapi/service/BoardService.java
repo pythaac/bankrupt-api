@@ -48,8 +48,6 @@ public class BoardService {
         return boardRepository.findAllBoardIds();
     }
 
-    public List<Board> findAll() { return boardRepository.findAll(); }
-
     public List<BoardDto> findAllBoardList(Integer page, Integer size, String sort, String direction) {
         Pageable pageable = getPageRequest(page, size, sort, direction);
         List<Board> boards = boardRepository.findAll(pageable).getContent();
