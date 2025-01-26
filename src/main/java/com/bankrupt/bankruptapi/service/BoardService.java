@@ -1,6 +1,7 @@
 package com.bankrupt.bankruptapi.service;
 
 import com.bankrupt.bankruptapi.dao.Board;
+import com.bankrupt.bankruptapi.dao.CategoryResource;
 import com.bankrupt.bankruptapi.dto.BoardDto;
 import com.bankrupt.bankruptapi.repository.BoardRepository;
 import jakarta.transaction.Transactional;
@@ -12,15 +13,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    private final CategoryRelationService categoryRelationService;
     private final CategoryService categoryService;
+    private final CategoryResourceService categoryResourceService;
+    private final CategoryRelationService categoryRelationService;
 
     public Long getTotalBoardCount(Long categoryId) {
         if (Objects.isNull(categoryId)) {
@@ -32,7 +36,7 @@ public class BoardService {
     @Transactional
     public void saveBoard(Board board) {
         boardRepository.save(board);
-        categoryRelationService.saveAllCategoryRelationByBoard(board);
+        saveAllCategoryRelationByBoard(board);
     }
 
     @Transactional
@@ -43,6 +47,8 @@ public class BoardService {
     public List<Long> findAllBoardIdList() {
         return boardRepository.findAllBoardIds();
     }
+
+    public List<Board> findAll() { return boardRepository.findAll(); }
 
     public List<BoardDto> findAllBoardList(Integer page, Integer size, String sort, String direction) {
         Pageable pageable = getPageRequest(page, size, sort, direction);
@@ -74,5 +80,15 @@ public class BoardService {
         } else {
             return PageRequest.of(page-1, size, Sort.by(Sort.Direction.DESC, sort));
         }
+    }
+
+    private void saveAllCategoryRelationByBoard(Board board) {
+        List<CategoryResource> allCategoryResources = categoryResourceService.findAllCategoryResources();
+
+        Map<Long, List<CategoryResource>> categoryResourceMapByCategoryId = allCategoryResources.stream()
+                .collect(Collectors.groupingBy(CategoryResource::getCategoryId));
+
+        categoryResourceMapByCategoryId.entrySet().stream().parallel()
+                .forEach(entry -> categoryRelationService.saveCategoryRelation(entry, board));
     }
 }

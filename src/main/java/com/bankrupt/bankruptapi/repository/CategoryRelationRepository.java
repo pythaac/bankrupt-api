@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface CategoryRelationRepository extends JpaRepository<CategoryRelation, Long> {
 
+    CategoryRelation findByBoardIdAndCategoryId(Long boardId, Long categoryId);
+
     @Transactional
     void deleteAllByBoardIdIn(List<Long> boardIdList);
 
