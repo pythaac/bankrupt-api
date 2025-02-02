@@ -1,6 +1,6 @@
 package com.bankrupt.bankruptapi.service;
 
-import com.bankrupt.bankruptapi.feign.ScourtBoardClient;
+import com.bankrupt.bankruptapi.feign.ScourtClient;
 import com.bankrupt.bankruptapi.dao.Board;
 import com.bankrupt.bankruptapi.model.ScourtBoardDetail;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class ScourtService {
-    private final ScourtBoardClient scourtBoardClient;
+    private final ScourtClient scourtClient;
     private final JsoupService jsoupService;
     private final BoardService boardService;
 
@@ -53,13 +53,13 @@ public class ScourtService {
     private ArrayList<Long> getAllScourtBoardId() {
 
         Map<String, Object> header = getScourtBoardHeader();
-        String html = scourtBoardClient.getScourtBoardPage(header, 5, 1);
+        String html = scourtClient.getScourtBoardPage(header, 5, 1);
 
         Integer lastPageIndex = jsoupService.getLastPageIndex(html);
 
         ArrayList<Long> courtBoards = new ArrayList<>();
         for(int pageIndex=1; pageIndex<=lastPageIndex; pageIndex++) {
-            html = scourtBoardClient.getScourtBoardPage(header, 5, pageIndex);
+            html = scourtClient.getScourtBoardPage(header, 5, pageIndex);
             ArrayList<Long> courtBoard = jsoupService.getSeqId(html);
             courtBoards.addAll(courtBoard);
         }
@@ -71,7 +71,7 @@ public class ScourtService {
 
         Map<String, Object> header = getScourtBoardHeader();
 
-        String detailHtml = scourtBoardClient.getScourtBoardDetailPage(header, seqId);
+        String detailHtml = scourtClient.getScourtBoardDetailPage(header, seqId);
         ScourtBoardDetail scourtBoardDetail = jsoupService.getScourtBoardDetail(detailHtml);
 
         return scourtBoardDetail;

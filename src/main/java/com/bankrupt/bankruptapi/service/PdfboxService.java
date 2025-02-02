@@ -3,8 +3,10 @@ package com.bankrupt.bankruptapi.service;
 import lombok.AllArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.net.URL;
 
 import static com.bankrupt.bankruptapi.Constant.SCOURT_DONWLOAD_URL;
@@ -33,5 +35,25 @@ public class PdfboxService {
         }
 
         return "";
+    }
+
+    public ByteArrayResource getPdfBytesByScourtUrl(String file, String fileName) {
+
+        if (file.endsWith(".pdf") || file.endsWith(".PDF")) {
+            try {
+                URL url = new URL(downloadUrl + "&file=" + file + "&downFile=" + fileName);
+
+                try (InputStream inputStream = url.openStream()) {
+                    return new ByteArrayResource(inputStream.readAllBytes());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 }

@@ -9,8 +9,8 @@ import java.util.Map;
 
 import static com.bankrupt.bankruptapi.Constant.SCORUT_URL;
 
-@FeignClient(value = "scourtBoardClient", url = SCORUT_URL)
-public interface ScourtBoardClient {
+@FeignClient(value = "scourtClient", url = SCORUT_URL)
+public interface ScourtClient {
 
     @PostMapping("/portal/notice/realestate/RealNoticeList.work")
     String getScourtBoardPage(
