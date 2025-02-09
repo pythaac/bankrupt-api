@@ -42,6 +42,8 @@ public class JsoupService {
                         builder.due(tdElement.text());
                     } else if ("전화번호".equals(thElement.text())) {
                         builder.telephoneNumber(tdElement.text());
+                    } else if ("조회수".equals(thElement.text())) {
+                        builder.views(tdElement.text());
                     } else if ("첨부파일".equals(thElement.text())) {
                         String download = tdElement.child(0).attribute("href").getValue();
                         Matcher matcher = Pattern.compile(

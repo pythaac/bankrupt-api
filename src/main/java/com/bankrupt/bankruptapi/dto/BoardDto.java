@@ -22,6 +22,7 @@ public class BoardDto {
     private String due;
     private String fileLink;
     private String telephoneNumber;
+    private String views;
     private List<CategoryDto> categories;
 
     private static String fileUrl = "https://file.scourt.go.kr/AttachDownload?path=011";
@@ -35,6 +36,7 @@ public class BoardDto {
                 .uploaded(board.getUploaded())
                 .due(board.getDue())
                 .telephoneNumber(board.getTelephoneNumber())
+                .views(board.getViews())
                 .fileLink(getFileLink(board.getFile(), board.getFileName()))
                 .categories(categories.stream().map(CategoryDto::of).toList())
                 .build();
