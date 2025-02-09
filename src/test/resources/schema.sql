@@ -9,6 +9,7 @@ CREATE TABLE board (
     file                TEXT,
     file_name           TEXT,
     telephone_number    TEXT,
+    views               TEXT,
     created             TIMESTAMP,
     updated             TIMESTAMP
 );
