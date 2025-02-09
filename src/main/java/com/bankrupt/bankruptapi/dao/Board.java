@@ -27,6 +27,7 @@ public class Board {
     private String file;
     private String fileName;
     private String telephoneNumber;
+    private String views;
     @CreationTimestamp
     private LocalDateTime created;
     @UpdateTimestamp

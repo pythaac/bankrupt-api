@@ -15,6 +15,7 @@ public class ScourtBoardDetail {
     String file;
     String fileName;
     String telephoneNumber;
+    String views;
 
     public Board toBoard(Long seqId) {
         return Board.builder()
@@ -27,6 +28,7 @@ public class ScourtBoardDetail {
                 .file(this.file)
                 .fileName(this.fileName)
                 .telephoneNumber(this.telephoneNumber)
+                .views(this.views)
                 .build();
     }
 }
