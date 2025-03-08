@@ -23,8 +23,7 @@ public class SyncService {
         return lastSyncTime;
     }
 
-    // 1000ms * 60 * 60 = 1hour
-    @Scheduled(fixedDelay = 3_600_000)
+    @Scheduled(cron = "${sync.scheduled}")
     public void syncScourt() {
         lastSyncTime = LocalDateTime.now();
 
