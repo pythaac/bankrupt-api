@@ -23,7 +23,7 @@ public class SyncService {
         return lastSyncTime;
     }
 
-    @Scheduled(cron = "${sync.scheduled}")
+    @Scheduled(fixedDelayString = "${sync.scheduled}")
     public void syncScourt() {
         lastSyncTime = LocalDateTime.now();
 
