@@ -1,3 +1,4 @@
+server.port: 8100
 
 spring:
     application:
@@ -7,6 +8,8 @@ spring:
     jpa:
         database: postgresql
         ddl-auto: validate
+        properties.hibernate.format_sql: true
 
-server:
-    port: 8100
+sync:
+    enabled: false
+    fixed-delay: 3600000
