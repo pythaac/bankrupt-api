@@ -8,13 +8,9 @@ spring:
     jpa:
         database: postgresql
         ddl-auto: validate
-        show-sql:true
         properties.hibernate.format_sql: true
 
 sync:
+    enabled: true
     # 1000ms * 60 * 60 = 1hour
-    scheduled: 3600000
-
-#logging.level.org.hibernate.SQL: DEBUG
-#logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
-#logging.level.org.hibernate.orm.jdbc.bind=TRACE
+    fixed-delay: 3600000
